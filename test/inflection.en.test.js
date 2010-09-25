@@ -13,6 +13,7 @@ module.exports = {
   },
   
   'test .uncountable()': function(assert){
+    delete en.rules.uncountable.foobar;
     assert.equal(false, en.isUncountable('foobar'));
     en.uncountable('foobar');
     assert.equal(true, en.isUncountable('foobar'));

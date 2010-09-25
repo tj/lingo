@@ -28,6 +28,16 @@ module.exports = {
     assert.equal('dishes', en.pluralize('dish'));
     assert.equal('judges', en.pluralize('judge'));
     assert.equal('massages', en.pluralize('massage'));
+    assert.equal('we', en.pluralize('i'));
+    assert.equal('you', en.pluralize('you'));
+    assert.equal('they', en.pluralize('she'));
+    assert.equal('they', en.pluralize('he'));
+    assert.equal('ourselves', en.pluralize('myself'));
+    assert.equal('ourselves', en.pluralize('yourself'));
+    assert.equal('themselves', en.pluralize('themself'));
+    assert.equal('themselves', en.pluralize('herself'));
+    assert.equal('themselves', en.pluralize('himself'));
+    assert.equal('themselves', en.pluralize('themself'));
   },
   
   'test .singularize()': function(assert){
@@ -38,5 +48,8 @@ module.exports = {
     assert.equal('man', en.singularize('men'));
     assert.equal('man', en.singularize('men'));
     assert.equal('parenthesi', en.singularize('parenthesis'));
+    assert.equal('i', en.singularize('we'));
+    assert.equal('you', en.singularize('you'));
+    assert.equal('themself', en.singularize('themselves'));
   }
 };

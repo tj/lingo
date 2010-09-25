@@ -72,5 +72,17 @@ module.exports = {
     assert.equal('man', en.singularize('man'));
     assert.equal('monkey', en.singularize('monkeys'));
     assert.equal('key', en.singularize('keys'));
+  },
+  
+  'test .isPlural()': function(assert){
+    assert.equal(true, en.isPlural('dogs'));
+    assert.equal(true, en.isPlural('monkies'));
+    assert.equal(false, en.isPlural('key'));
+  },
+  
+  'test .isSingular()': function(assert){
+    assert.equal(true, en.isSingular('person'));
+    assert.equal(true, en.isSingular('dog'));
+    assert.equal(false, en.isSingular('keys'));
   }
 };

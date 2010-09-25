@@ -50,6 +50,9 @@ module.exports = {
     assert.equal('theirs', en.pluralize('his'));
     assert.equal('theirs', en.pluralize('its'));
     assert.equal('theirs', en.pluralize('theirs'));
+    assert.equal('monkeys', en.pluralize('monkey'));
+    assert.equal('keys', en.pluralize('key'));
+    assert.equal('dogs', en.pluralize('dog'));
   },
   
   'test .singularize()': function(assert){
@@ -67,5 +70,7 @@ module.exports = {
     assert.equal('miss', en.singularize('miss'));
     assert.equal('kiss', en.singularize('kiss'));
     assert.equal('man', en.singularize('man'));
+    assert.equal('monkey', en.singularize('monkeys'));
+    assert.equal('key', en.singularize('keys'));
   }
 };

@@ -1,6 +1,16 @@
 
 # Lingo
 
+ Lingo is a linguistics module, currently providing inflection and some string transformations. Eventually I would like to extend it's capabilities and add additional languages.
+
+## Installation
+
+    $ npm install lingo
+
+## Usage Information
+
+  Until I have some hand-written docs, view the generated ones [here](http://visionmedia.github.com/lingo).
+
 ## License 
 
 (The MIT License)

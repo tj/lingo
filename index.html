@@ -1,0 +1,503 @@
+<a href="http://github.com/visionmedia/lingo"><img alt="Fork me on GitHub" id="ribbon" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a><html>
+	<head>
+		<title>Lingo</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+		<style>body {
+    margin: 0;
+    padding: 0;
+    font: 14px/1.5 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+    color: #252519;
+}
+a {
+    color: #252519;
+}
+a:hover {
+    text-decoration: underline;
+    color: #19469D;
+}
+p {
+    margin: 12px 0;
+}
+h1, h2, h3 {
+    margin: 0;
+    padding: 0;
+}
+table#source {
+    width: 100%;
+    border-collapse: collapse;
+}
+table#source td:first-child {
+    padding: 30px 40px 30px 40px;
+    vertical-align: top;
+}
+table#source td:first-child,
+table#source td:first-child pre {
+    width: 450px;
+}
+table#source td:last-child {
+    padding: 30px 0 30px 40px;
+    border-left: 1px solid #E5E5EE;
+    background: #F5F5FF;
+}
+table#source tr {
+    border-bottom: 1px solid #E5E5EE;
+}
+table#source tr.filename {
+    padding-top: 40px;
+    border-top: 1px solid #E5E5EE;
+}
+table#source tr.filename td:first-child {
+    text-transform: capitalize;
+}
+table#source tr.filename td:last-child {
+    font-size: 12px;
+}
+table#source tr.filename h2 {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+table#source tr.code h1,
+table#source tr.code h2,
+table#source tr.code h3 {
+    margin-top: 30px;
+    font-family: "Lucida Grande", "Helvetica Nueue", Arial, sans-serif;
+    font-size: 18px;
+}
+table#source tr.code h2 {
+    font-size: 16px;
+}
+table#source tr.code h3 {
+    font-size: 14px;
+}
+table#source tr.code ul {
+    margin: 15px 0 15px 35px;
+    padding: 0;
+}
+table#source tr.code ul li {
+    margin: 0;
+    padding: 1px 0;
+}
+table#source tr.code ul li p {
+    margin: 0;
+    padding: 0;
+}
+table#source tr.code td:first-child pre {
+    padding: 20px;
+}
+#ribbon {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+code .string { color: #219161; }
+code .regexp { color: #219161; }
+code .keyword { color: #954121; }
+code .number { color: #19469D; }
+code .comment { color: #bbb; }
+code .this { color: #19469D; }</style>
+		<script>
+			$(function(){
+				$('tr.code').hide();
+				$('tr.filename').toggle(function(){
+					$(this).nextUntil('.filename').fadeIn();
+				}, function(){
+					$(this).nextUntil('.filename').fadeOut();
+				});
+			});
+		</script>
+	</head>
+	<body>
+<table id="source"><tbody><tr><td><h1>Lingo</h1><p>Linguistics module for <a href="http://nodejs.org">Node</a> providing inflection, transformations and more.</p></td><td></td></tr><tr class="filename"><td><h2 id="lib/language.js"><a href="#">language</a></h2></td><td>lib/language.js</td></tr><tr class="code">
+<td class="docs">
+<p>Initialize a new <code>Language</code> with the given <code>lang</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  lang</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="class">Language</span> = <span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span> <span class="class">Language</span>(<span class="variable">lang</span>) {
+  <span class="this">this</span>.<span class="variable">lang</span> = <span class="variable">lang</span>;
+  <span class="this">this</span>.<span class="variable">rules</span> = {
+      <span class="variable">plural</span>: []
+    , <span class="variable">singular</span>: []
+    , <span class="variable">uncountable</span>: {}
+    , <span class="variable">irregular</span>: { <span class="variable">plural</span>: {}, <span class="variable">singular</span>: {}}
+  };
+};</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/inflection.js"><a href="#">inflection</a></h2></td><td>lib/inflection.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module dependencies.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="class">Language</span> = <span class="variable">require</span>(<span class="string">'./language'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Check if a <code>word</code> is uncountable.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  word</p></li><li><p><strong>return</strong>: <em>Boolean</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">isUncountable</span> = <span class="keyword">function</span>(<span class="variable">word</span>){
+  <span class="keyword">return</span> !!<span class="this">this</span>.<span class="variable">rules</span>.<span class="variable">uncountable</span>[<span class="variable">word</span>];
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Add an uncountable <code>word</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  word</p></li><li><p><strong>return</strong>: <em>Language</em>  for chaining</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">uncountable</span> = <span class="keyword">function</span>(<span class="variable">word</span>){
+  <span class="this">this</span>.<span class="variable">rules</span>.<span class="variable">uncountable</span>[<span class="variable">word</span>] = <span class="variable">word</span>;
+  <span class="keyword">return</span> <span class="this">this</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Add an irreglar <code>singular</code> / <code>plural</code> map.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  singular</p></li><li><p><strong>param</strong>: <em>String</em>  plural</p></li><li><p><strong>return</strong>: <em>Language</em>  for chaining</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">irregular</span> = <span class="keyword">function</span>(<span class="variable">singular</span>, <span class="variable">plural</span>){
+  <span class="this">this</span>.<span class="variable">rules</span>.<span class="variable">irregular</span>.<span class="variable">plural</span>[<span class="variable">singular</span>] = <span class="variable">plural</span>;
+  <span class="this">this</span>.<span class="variable">rules</span>.<span class="variable">irregular</span>.<span class="variable">singular</span>[<span class="variable">plural</span>] = <span class="variable">singular</span>;
+  <span class="keyword">return</span> <span class="this">this</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Add a pluralization <code>rule</code> with the given <code>substitution</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>RegExp</em>  rule</p></li><li><p><strong>param</strong>: <em>String</em>  substitution</p></li><li><p><strong>return</strong>: <em>Language</em>  for chaining</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">plural</span> = <span class="keyword">function</span>(<span class="variable">rule</span>, <span class="variable">substitution</span>){
+  <span class="this">this</span>.<span class="variable">rules</span>.<span class="variable">plural</span>.<span class="variable">unshift</span>([<span class="variable">rule</span>, <span class="variable">substitution</span>]);
+  <span class="keyword">return</span> <span class="this">this</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Add a singularization <code>rule</code> with the given <code>substitution</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>RegExp</em>  rule</p></li><li><p><strong>param</strong>: <em>String</em>  substitution</p></li><li><p><strong>return</strong>: <em>Language</em>  for chaining</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">singular</span> = <span class="keyword">function</span>(<span class="variable">rule</span>, <span class="variable">substitution</span>){
+  <span class="this">this</span>.<span class="variable">rules</span>.<span class="variable">singular</span>.<span class="variable">unshift</span>([<span class="variable">rule</span>, <span class="variable">substitution</span>]);
+  <span class="keyword">return</span> <span class="this">this</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Pluralize the given <code>word</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  word</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">pluralize</span> = <span class="keyword">function</span>(<span class="variable">word</span>){
+  <span class="keyword">return</span> <span class="this">this</span>.<span class="variable">inflect</span>(<span class="variable">word</span>, <span class="string">'plural'</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Check if <code>word</code> is plural.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  word</p></li><li><p><strong>return</strong>: <em>Boolean</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">isPlural</span> = <span class="keyword">function</span>(<span class="variable">word</span>){
+  <span class="keyword">return</span> <span class="variable">word</span> == <span class="this">this</span>.<span class="variable">pluralize</span>(<span class="this">this</span>.<span class="variable">singularize</span>(<span class="variable">word</span>));
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Singularize the given <code>word</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  word</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">singularize</span> = <span class="keyword">function</span>(<span class="variable">word</span>){
+  <span class="keyword">return</span> <span class="this">this</span>.<span class="variable">inflect</span>(<span class="variable">word</span>, <span class="string">'singular'</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Check if <code>word</code> is singular.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  word</p></li><li><p><strong>return</strong>: <em>Boolean</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">isSingular</span> = <span class="keyword">function</span>(<span class="variable">word</span>){
+  <span class="keyword">return</span> <span class="variable">word</span> == <span class="this">this</span>.<span class="variable">singularize</span>(<span class="this">this</span>.<span class="variable">pluralize</span>(<span class="variable">word</span>));
+};</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/languages/en.js"><a href="#">en</a></h2></td><td>lib/languages/en.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module dependencies.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="class">Language</span> = <span class="variable">require</span>(<span class="string">'../language'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>English.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">en</span> = <span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">new</span> <span class="class">Language</span>(<span class="string">'en'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Default pluralization rules.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">en</span>.<span class="variable">plural</span>(<span class="regexp">/$/</span>, &<span class="variable">quot</span>;<span class="variable">s</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/(s|ss|sh|ch|x|o)$/i</span>, &<span class="variable">quot</span>;$<span class="variable">es</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/y$/i</span>, &<span class="variable">quot</span>;<span class="variable">ies</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/(o|e)y$/i</span>, &<span class="variable">quot</span>;$<span class="variable">ys</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/(octop|vir)us$/i</span>, &<span class="variable">quot</span>;$<span class="variable">i</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/(alias|status)$/i</span>, &<span class="variable">quot</span>;$<span class="variable">es</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/(bu)s$/i</span>, &<span class="variable">quot</span>;$<span class="variable">ses</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/([ti])um$/i</span>, &<span class="variable">quot</span>;$<span class="variable">a</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/sis$/i</span>, &<span class="variable">quot</span>;<span class="variable">ses</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/(?:([^f])fe|([lr])f)$/i</span>, &<span class="variable">quot</span>;$<span class="number integer">1</span>$<span class="variable">ves</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/([^aeiouy]|qu)y$/i</span>, &<span class="variable">quot</span>;$<span class="variable">ies</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/(matr|vert|ind)(?:ix|ex)$/i</span>, &<span class="variable">quot</span>;$<span class="variable">ices</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/([m|l])ouse$/i</span>, &<span class="variable">quot</span>;$<span class="variable">ice</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/^(ox)$/i</span>, &<span class="variable">quot</span>;$<span class="variable">en</span>&<span class="variable">quot</span>;)
+  .<span class="variable">plural</span>(<span class="regexp">/(quiz)$/i</span>, &<span class="variable">quot</span>;$<span class="variable">zes</span>&<span class="variable">quot</span>;);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Default singularization rules.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">en</span>.<span class="variable">singular</span>(<span class="regexp">/s$/i</span>, &<span class="variable">quot</span>;&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(bu|mis|kis)s$/i</span>, &<span class="variable">quot</span>;$<span class="variable">s</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/([ti])a$/i</span>, &<span class="variable">quot</span>;$<span class="variable">um</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)ses$/i</span>, &<span class="variable">quot</span>;$<span class="number integer">1</span>$<span class="variable">sis</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(^analy)ses$/i</span>, &<span class="variable">quot</span>;$<span class="variable">sis</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/([^f])ves$/i</span>, &<span class="variable">quot</span>;$<span class="variable">fe</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/([lr])ves$/i</span>, &<span class="variable">quot</span>;$<span class="variable">f</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/([^aeiouy]|qu)ies$/i</span>, &<span class="variable">quot</span>;$<span class="variable">y</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/ies$/i</span>, &<span class="variable">quot</span>;<span class="variable">ie</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(x|ch|ss|sh)es$/i</span>, &<span class="variable">quot</span>;$<span class="number integer">1</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/([m|l])ice$/i</span>, &<span class="variable">quot</span>;$<span class="variable">ouse</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(bus)es$/i</span>, &<span class="variable">quot</span>;$<span class="number integer">1</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(o)es$/i</span>, &<span class="variable">quot</span>;$<span class="number integer">1</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(shoe)s$/i</span>, &<span class="variable">quot</span>;$<span class="number integer">1</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(cris|ax|test)es$/i</span>, &<span class="variable">quot</span>;$<span class="variable">is</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(octop|vir)i$/i</span>, &<span class="variable">quot</span>;$<span class="variable">us</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(alias|status)es$/i</span>, &<span class="variable">quot</span>;$<span class="number integer">1</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/^(ox)en/i</span>, &<span class="variable">quot</span>;$<span class="number integer">1</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(vert|ind)ices$/i</span>, &<span class="variable">quot</span>;$<span class="variable">ex</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(matr)ices$/i</span>, &<span class="variable">quot</span>;$<span class="variable">ix</span>&<span class="variable">quot</span>;)
+  .<span class="variable">singular</span>(<span class="regexp">/(quiz)zes$/i</span>, &<span class="variable">quot</span>;$<span class="number integer">1</span>&<span class="variable">quot</span>;);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Default irregular word mappings.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">en</span>.<span class="variable">irregular</span>(<span class="string">'i'</span>, <span class="string">'we'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'person'</span>, <span class="string">'people'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'man'</span>, <span class="string">'men'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'child'</span>, <span class="string">'children'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'move'</span>, <span class="string">'moves'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'she'</span>, <span class="string">'they'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'he'</span>, <span class="string">'they'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'myself'</span>, <span class="string">'ourselves'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'yourself'</span>, <span class="string">'ourselves'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'himself'</span>, <span class="string">'themselves'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'herself'</span>, <span class="string">'themselves'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'themself'</span>, <span class="string">'themselves'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'mine'</span>, <span class="string">'ours'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'hers'</span>, <span class="string">'theirs'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'his'</span>, <span class="string">'theirs'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'its'</span>, <span class="string">'theirs'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'theirs'</span>, <span class="string">'theirs'</span>)
+  .<span class="variable">irregular</span>(<span class="string">'sex'</span>, <span class="string">'sexes'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Default uncountables.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">en</span>.<span class="variable">uncountable</span>(<span class="string">'advice'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'enegery'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'excretion'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'digestion'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'cooperation'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'health'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'justice'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'jeans'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'labour'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'machinery'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'equipment'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'information'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'pollution'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'sewage'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'paper'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'money'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'species'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'series'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'rain'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'rice'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'fish'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'sheep'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'moose'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'deer'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'bison'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'proceedings'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'shears'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'pincers'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'breeches'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'hijinks'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'clippers'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'chassis'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'innings'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'elk'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'rhinoceros'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'swine'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'you'</span>)
+  .<span class="variable">uncountable</span>(<span class="string">'news'</span>);
+</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/lingo.js"><a href="#">lingo</a></h2></td><td>lib/lingo.js</td></tr><tr class="code">
+<td class="docs">
+<p>Library version.</p>
+
+<ul><li><p><strong>type</strong>: <em>String</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">version</span> = <span class="string">'0.0.1'</span></code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Expose <code>Language</code>.</p>
+
+<ul><li><p><strong>type</strong>: <em>Function</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="class">Language</span> = <span class="variable">require</span>(<span class="string">'./language'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Extend <code>Language</code> with inflection rules.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">require</span>(<span class="string">'./inflection'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Capitalize the first word of <code>str</code> or optionally <code>allWords</code>.</p>
+
+<h2>Examples</h2>
+
+<p>   lingo.capitalize('hello there');
+   // =&gt; "Hello there"</p>
+
+<p>   lingo.capitalize('hello there', true);
+   // =&gt; "Hello There"</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  str</p></li><li><p><strong>param</strong>: <em>Boolean</em>  allWords</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">capitalize</span> = <span class="keyword">function</span>(<span class="variable">str</span>, <span class="variable">allWords</span>){
+  <span class="keyword">if</span> (<span class="variable">allWords</span>) {
+    <span class="keyword">return</span> <span class="variable">str</span>.<span class="variable">split</span>(<span class="string">' '</span>).<span class="variable">map</span>(<span class="keyword">function</span>(<span class="variable">word</span>){
+      <span class="keyword">return</span> <span class="variable">exports</span>.<span class="variable">capitalize</span>(<span class="variable">word</span>);
+    }).<span class="variable">join</span>(<span class="string">' '</span>);
+  }
+  <span class="keyword">return</span> <span class="variable">str</span>.<span class="variable">charAt</span>(<span class="number integer">0</span>).<span class="variable">toUpperCase</span>() + <span class="variable">str</span>.<span class="variable">substr</span>(<span class="number integer">1</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Camel-case the given <code>str</code>.</p>
+
+<h2>Examples</h2>
+
+<p>   lingo.camelcase('foo bar');
+   // =&gt; "fooBar"</p>
+
+<p>   lingo.camelcase('foo bar baz', true);
+   // =&gt; "FooBarBaz"</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  str</p></li><li><p><strong>param</strong>: <em>Boolean</em>  uppercaseFirst</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">camelcase</span> = <span class="keyword">function</span>(<span class="variable">str</span>, <span class="variable">uppercaseFirst</span>){
+  <span class="keyword">return</span> <span class="variable">str</span>.<span class="variable">replace</span>(<span class="regexp">/[^\w\d ]+/g</span>, <span class="string">''</span>).<span class="variable">split</span>(<span class="string">' '</span>).<span class="variable">map</span>(<span class="keyword">function</span>(<span class="variable">word</span>, <span class="variable">i</span>){
+    <span class="keyword">if</span> (<span class="variable">i</span> || (<span class="number integer">0</span> == <span class="variable">i</span> &<span class="variable">amp</span>;&<span class="variable">amp</span>; <span class="variable">uppercaseFirst</span>)) {
+      <span class="variable">word</span> = <span class="variable">exports</span>.<span class="variable">capitalize</span>(<span class="variable">word</span>);
+    }
+    <span class="keyword">return</span> <span class="variable">word</span>;
+  }).<span class="variable">join</span>(<span class="string">''</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Expose languages.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">en</span> = <span class="variable">require</span>(<span class="string">'./languages/en'</span>);</code></pre>
+</td>
+</tr>	</body>
+</html></tbody></table>

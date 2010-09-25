@@ -58,7 +58,6 @@ module.exports = {
     assert.equal('thing', en.singularize('things'));
     assert.equal('thing', en.singularize('thing'));
     assert.equal('man', en.singularize('men'));
-    assert.equal('man', en.singularize('men'));
     assert.equal('parenthesi', en.singularize('parenthesis'));
     assert.equal('i', en.singularize('we'));
     assert.equal('you', en.singularize('you'));
@@ -67,5 +66,6 @@ module.exports = {
     assert.equal('bus', en.singularize('bus'));
     assert.equal('miss', en.singularize('miss'));
     assert.equal('kiss', en.singularize('kiss'));
+    assert.equal('man', en.singularize('man'));
   }
 };

@@ -53,6 +53,7 @@ module.exports = {
     assert.equal('monkeys', en.pluralize('monkey'));
     assert.equal('keys', en.pluralize('key'));
     assert.equal('dogs', en.pluralize('dog'));
+    assert.equal('boys', en.pluralize('boy'));
   },
   
   'test .singularize()': function(assert){
@@ -72,6 +73,7 @@ module.exports = {
     assert.equal('man', en.singularize('man'));
     assert.equal('monkey', en.singularize('monkeys'));
     assert.equal('key', en.singularize('keys'));
+    assert.equal('boy', en.singularize('boys'));
   },
   
   'test .isPlural()': function(assert){

@@ -38,6 +38,12 @@ module.exports = {
     assert.equal('themselves', en.pluralize('herself'));
     assert.equal('themselves', en.pluralize('himself'));
     assert.equal('themselves', en.pluralize('themself'));
+    assert.equal('ours', en.pluralize('mine'));
+    assert.equal('yours', en.pluralize('yours'));
+    assert.equal('theirs', en.pluralize('hers'));
+    assert.equal('theirs', en.pluralize('his'));
+    assert.equal('theirs', en.pluralize('its'));
+    assert.equal('theirs', en.pluralize('theirs'));
   },
   
   'test .singularize()': function(assert){
@@ -51,5 +57,6 @@ module.exports = {
     assert.equal('i', en.singularize('we'));
     assert.equal('you', en.singularize('you'));
     assert.equal('themself', en.singularize('themselves'));
+    assert.equal('theirs', en.singularize('theirs'));
   }
 };

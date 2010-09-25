@@ -54,10 +54,12 @@ module.exports = {
     assert.equal('keys', en.pluralize('key'));
     assert.equal('dogs', en.pluralize('dog'));
     assert.equal('boys', en.pluralize('boy'));
+    assert.equal('oxen', en.pluralize('ox'));
   },
   
   'test .singularize()': function(assert){
     assert.equal('paper', en.singularize('paper'));
+    assert.equal('ox', en.singularize('oxen'));
     assert.equal('shoe', en.singularize('shoes'));
     assert.equal('thing', en.singularize('things'));
     assert.equal('thing', en.singularize('thing'));

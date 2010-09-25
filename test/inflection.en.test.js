@@ -20,9 +20,15 @@ module.exports = {
   },
   
   'test .pluralize()': function(assert){
+    assert.equal('buses', en.pluralize('bus'));
+    assert.equal('misses', en.pluralize('miss'));
+    assert.equal('wishes', en.pluralize('wish'));
+    assert.equal('watches', en.pluralize('watch'));
+    assert.equal('foxes', en.pluralize('fox'));
+    assert.equal('potatoes', en.pluralize('potato'));
+    assert.equal('parties', en.pluralize('party'));
     assert.equal('paper', en.pluralize('paper'));
     assert.equal('quizzes', en.pluralize('quiz'));
-    assert.equal('things', en.pluralize('things'));
     assert.equal('things', en.pluralize('thing'));
     assert.equal('men', en.pluralize('man'));
     assert.equal('kisses', en.pluralize('kiss'));
@@ -40,7 +46,6 @@ module.exports = {
     assert.equal('themselves', en.pluralize('himself'));
     assert.equal('themselves', en.pluralize('themself'));
     assert.equal('ours', en.pluralize('mine'));
-    assert.equal('yours', en.pluralize('yours'));
     assert.equal('theirs', en.pluralize('hers'));
     assert.equal('theirs', en.pluralize('his'));
     assert.equal('theirs', en.pluralize('its'));

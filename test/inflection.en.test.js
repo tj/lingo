@@ -4,7 +4,7 @@
  */
 
 var lingo = require('lingo')
-  , en = lingo.inflection.en;
+  , en = lingo.en;
 
 module.exports = {
   'test .isUncountable()': function(assert){

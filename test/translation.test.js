@@ -4,7 +4,8 @@
  */
 
 var lingo = require('lingo')
-  , lang = lingo.Language.en;
+  , lang = lingo.Language.en
+  , t = lingo.translate;
 
 var alien = new lingo.Language('alien');
 
@@ -15,6 +16,13 @@ alien.translations = {
 };
 
 module.exports = {
+  'test lingo.translate()': function(assert){
+    assert.equal('Hello TJ', t('Hello {name}', { name: 'TJ' }));
+    lingo.localize('alien');
+    assert.equal('TJ rawr', t('Hello {name}', { name: 'TJ' }));
+    lingo.localize('en');
+  },
+
   'test .translate()': function(assert){
     assert.equal('Hello World', lang.translate('Hello World'));
     assert.equal('Hello TJ', lang.translate('Hello {name}', { name: 'TJ' }));

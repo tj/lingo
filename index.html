@@ -108,26 +108,7 @@ code .this { color: #19469D; }</style>
 		</script>
 	</head>
 	<body>
-<table id="source"><tbody><tr><td><h1>Lingo</h1><p>Linguistics module for <a href="http://nodejs.org">Node</a> providing inflection, transformations and more.</p></td><td></td></tr><tr class="filename"><td><h2 id="lib/language.js"><a href="#">language</a></h2></td><td>lib/language.js</td></tr><tr class="code">
-<td class="docs">
-<p>Initialize a new <code>Language</code> with the given <code>lang</code>.</p>
-
-<h2></h2>
-
-<ul><li><p><strong>param</strong>: <em>String</em>  lang</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
-</td>
-<td class="code">
-<pre><code><span class="keyword">var</span> <span class="class">Language</span> = <span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span> <span class="class">Language</span>(<span class="variable">lang</span>) {
-  <span class="this">this</span>.<span class="variable">lang</span> = <span class="variable">lang</span>;
-  <span class="this">this</span>.<span class="variable">rules</span> = {
-      <span class="variable">plural</span>: []
-    , <span class="variable">singular</span>: []
-    , <span class="variable">uncountable</span>: {}
-    , <span class="variable">irregular</span>: { <span class="variable">plural</span>: {}, <span class="variable">singular</span>: {}}
-  };
-};</code></pre>
-</td>
-</tr><tr class="filename"><td><h2 id="lib/inflection.js"><a href="#">inflection</a></h2></td><td>lib/inflection.js</td></tr><tr class="code">
+<table id="source"><tbody><tr><td><h1>Lingo</h1><p>Linguistics module for <a href="http://nodejs.org">Node</a> providing inflection, transformations and more.</p></td><td></td></tr><tr class="filename"><td><h2 id="lib/inflection.js"><a href="#">inflection</a></h2></td><td>lib/inflection.js</td></tr><tr class="code">
 <td class="docs">
 <p>Module dependencies.
  </p>
@@ -264,6 +245,25 @@ code .this { color: #19469D; }</style>
 <td class="code">
 <pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">isSingular</span> = <span class="keyword">function</span>(<span class="variable">word</span>){
   <span class="keyword">return</span> <span class="variable">word</span> == <span class="this">this</span>.<span class="variable">singularize</span>(<span class="this">this</span>.<span class="variable">pluralize</span>(<span class="variable">word</span>));
+};</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/language.js"><a href="#">language</a></h2></td><td>lib/language.js</td></tr><tr class="code">
+<td class="docs">
+<p>Initialize a new <code>Language</code> with the given <code>lang</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  lang</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="class">Language</span> = <span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span> <span class="class">Language</span>(<span class="variable">lang</span>) {
+  <span class="this">this</span>.<span class="variable">lang</span> = <span class="variable">lang</span>;
+  <span class="this">this</span>.<span class="variable">rules</span> = {
+      <span class="variable">plural</span>: []
+    , <span class="variable">singular</span>: []
+    , <span class="variable">uncountable</span>: {}
+    , <span class="variable">irregular</span>: { <span class="variable">plural</span>: {}, <span class="variable">singular</span>: {}}
+  };
 };</code></pre>
 </td>
 </tr><tr class="filename"><td><h2 id="lib/languages/en.js"><a href="#">en</a></h2></td><td>lib/languages/en.js</td></tr><tr class="code">

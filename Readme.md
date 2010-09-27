@@ -39,14 +39,6 @@ Camelcase with first character upppercase:
 
 ## i18n (translations)
 
-Lingo provides you with the `translate()` method, which accepts
-a string optionally including placeholders which are provided by the object as the second argument. 
-
-    var t = require('lingo').translate;
-    var greeting = t('Welcome {name}', { name: user.name });
-
-By default the language is set to _en_, however you can implement a new `Language` as shown below.
-
     var Language = require('lingo').Language
       , french = new Language('fr');
 

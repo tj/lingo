@@ -75,6 +75,18 @@ Camelcase with first character upppercase:
     lingo.camelcase('foo bar baz', true);
     // => "FooBarBaz"
 
+## lingo.join()
+
+Defaults to "and":
+
+    lingo.join(['fruits', 'veggies', 'sugar']);
+    // => "fruits, veggies and sugar"
+
+Supplying "or":
+
+    lingo.join(['fruits', 'veggies', 'sugar'], 'or');
+    // => "fruits, veggies or sugar"
+
 ## i18n (translations)
 
 New languages can be defined as shown below:

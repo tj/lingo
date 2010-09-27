@@ -23,6 +23,13 @@ module.exports = {
     assert.equal('UserRole', lingo.camelcase('user role', true));
   },
   
+  'test .join()': function(assert){
+    assert.equal('foo', lingo.join(['foo']));
+    assert.equal('foo and bar', lingo.join(['foo', 'bar']));
+    assert.equal('foo, bar and baz', lingo.join(['foo', 'bar', 'baz']));
+    assert.equal('foo, bar or baz', lingo.join(['foo', 'bar', 'baz'], 'or'));
+  },
+  
   'test Language mapping': function(assert){
     assert.equal('en', lingo.Language.en.code);
   }

@@ -249,22 +249,54 @@ code .this { color: #19469D; }</style>
 </td>
 </tr><tr class="filename"><td><h2 id="lib/language.js"><a href="#">language</a></h2></td><td>lib/language.js</td></tr><tr class="code">
 <td class="docs">
-<p>Initialize a new <code>Language</code> with the given <code>lang</code>.</p>
+<p>Module dependencies.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">lingo</span> = <span class="variable">require</span>(<span class="string">'./lingo'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Initialize a new <code>Language</code> with the given <code>code</code>.</p>
 
 <h2></h2>
 
-<ul><li><p><strong>param</strong>: <em>String</em>  lang</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+<ul><li><p><strong>param</strong>: <em>String</em>  code</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
 </td>
 <td class="code">
-<pre><code><span class="keyword">var</span> <span class="class">Language</span> = <span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span> <span class="class">Language</span>(<span class="variable">lang</span>) {
-  <span class="this">this</span>.<span class="variable">lang</span> = <span class="variable">lang</span>;
+<pre><code><span class="keyword">var</span> <span class="class">Language</span> = <span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span> <span class="class">Language</span>(<span class="variable">code</span>) {
+  <span class="this">this</span>.<span class="variable">code</span> = <span class="variable">code</span>;
+  <span class="this">this</span>.<span class="variable">translations</span> = {};
   <span class="this">this</span>.<span class="variable">rules</span> = {
       <span class="variable">plural</span>: []
     , <span class="variable">singular</span>: []
     , <span class="variable">uncountable</span>: {}
     , <span class="variable">irregular</span>: { <span class="variable">plural</span>: {}, <span class="variable">singular</span>: {}}
   };
+  <span class="variable">lingo</span>[<span class="variable">code</span>] = <span class="this">this</span>;
 };</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Translate the given <code>str</code> with optional <code>params</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  str</p></li><li><p><strong>param</strong>: <em>Object</em>  params</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">translate</span> = <span class="keyword">function</span>(<span class="variable">str</span>, <span class="variable">params</span>){
+  <span class="variable">str</span> = <span class="this">this</span>.<span class="variable">translations</span>[<span class="variable">str</span>] || <span class="variable">str</span>;
+  <span class="keyword">if</span> (<span class="variable">params</span>) {
+    <span class="variable">str</span> = <span class="variable">str</span>.<span class="variable">replace</span>(<span class="regexp">/\{([^}]+)\}/g</span>, <span class="keyword">function</span>(<span class="variable">_</span>, <span class="variable">key</span>){
+      <span class="keyword">return</span> <span class="variable">params</span>[<span class="variable">key</span>];
+    });
+  }
+  <span class="keyword">return</span> <span class="variable">str</span>;
+};
+</code></pre>
 </td>
 </tr><tr class="filename"><td><h2 id="lib/languages/en.js"><a href="#">en</a></h2></td><td>lib/languages/en.js</td></tr><tr class="code">
 <td class="docs">
@@ -410,12 +442,21 @@ code .this { color: #19469D; }</style>
 </td>
 </tr><tr class="filename"><td><h2 id="lib/lingo.js"><a href="#">lingo</a></h2></td><td>lib/lingo.js</td></tr><tr class="code">
 <td class="docs">
+<p>Module dependencies.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">fs</span> = <span class="variable">require</span>(<span class="string">'fs'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
 <p>Library version.</p>
 
 <ul><li><p><strong>type</strong>: <em>String</em></p></li></ul>
 </td>
 <td class="code">
-<pre><code><span class="variable">exports</span>.<span class="variable">version</span> = <span class="string">'0.0.1'</span></code></pre>
+<pre><code><span class="variable">exports</span>.<span class="variable">version</span> = <span class="string">'0.0.2'</span>;</code></pre>
 </td>
 </tr>
 <tr class="code">
@@ -435,6 +476,15 @@ code .this { color: #19469D; }</style>
 </td>
 <td class="code">
 <pre><code><span class="variable">require</span>(<span class="string">'./inflection'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Auto-require languages.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">require</span>(<span class="string">'./languages/en'</span>);</code></pre>
 </td>
 </tr>
 <tr class="code">
@@ -493,11 +543,30 @@ code .this { color: #19469D; }</style>
 </tr>
 <tr class="code">
 <td class="docs">
-<p>Expose languages.
- </p>
+<p>Join an array with the given <code>last</code> string
+which defaults to "and".</p>
+
+<h2>Examples</h2>
+
+<p>   lingo.join(['fruits', 'veggies', 'sugar']);
+   // =&gt; "fruits, veggies and sugar"</p>
+
+<p>   lingo.join(['fruits', 'veggies', 'sugar'], 'or');
+   // =&gt; "fruits, veggies or sugar"</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Array</em>  arr</p></li><li><p><strong>param</strong>: <em>String</em>  last</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
 </td>
 <td class="code">
-<pre><code><span class="variable">exports</span>.<span class="variable">en</span> = <span class="variable">require</span>(<span class="string">'./languages/en'</span>);</code></pre>
+<pre><code><span class="variable">exports</span>.<span class="variable">join</span> = <span class="keyword">function</span>(<span class="variable">arr</span>, <span class="variable">last</span>){
+  <span class="keyword">var</span> <span class="variable">str</span> = <span class="variable">arr</span>.<span class="variable">pop</span>()
+    , <span class="variable">last</span> = <span class="variable">last</span> || <span class="string">'and'</span>;
+  <span class="keyword">if</span> (<span class="variable">arr</span>.<span class="variable">length</span>) {
+    <span class="variable">str</span> = <span class="variable">arr</span>.<span class="variable">join</span>(<span class="string">', '</span>) + <span class="string">' '</span> + <span class="variable">last</span> + <span class="string">' '</span> + <span class="variable">str</span>;
+  }
+  <span class="keyword">return</span> <span class="variable">str</span>;
+};</code></pre>
 </td>
 </tr>	</body>
 </html></tbody></table>

@@ -18,9 +18,9 @@ alien.translations = {
 module.exports = {
   'test lingo.translate()': function(assert){
     assert.equal('Hello TJ', t('Hello {name}', { name: 'TJ' }));
-    lingo.localize('alien');
+    lingo.locale('alien');
     assert.equal('TJ rawr', t('Hello {name}', { name: 'TJ' }));
-    lingo.localize('en');
+    lingo.locale('en');
   },
 
   'test .translate()': function(assert){

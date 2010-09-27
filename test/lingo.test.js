@@ -21,5 +21,9 @@ module.exports = {
     assert.equal('fooBarBaz', lingo.camelcase('foo bar baz'));
     assert.equal('base64Encode', lingo.camelcase('base  -! 64 encode'));
     assert.equal('UserRole', lingo.camelcase('user role', true));
+  },
+  
+  'test Language mapping': function(assert){
+    assert.equal('en', lingo.Language.en.code);
   }
 }

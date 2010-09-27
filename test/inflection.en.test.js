@@ -86,12 +86,16 @@ module.exports = {
   'test .isPlural()': function(assert){
     assert.equal(true, en.isPlural('dogs'));
     assert.equal(true, en.isPlural('monkies'));
+    assert.equal(true, en.isPlural('foxes'));
     assert.equal(false, en.isPlural('key'));
+    assert.equal(false, en.isPlural('fox'));
   },
   
   'test .isSingular()': function(assert){
+    assert.equal(true, en.isSingular('fox'));
     assert.equal(true, en.isSingular('person'));
     assert.equal(true, en.isSingular('dog'));
     assert.equal(false, en.isSingular('keys'));
+    assert.equal(false, en.isSingular('foxes'));
   }
 };

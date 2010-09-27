@@ -11,6 +11,44 @@
 
   Can be viewed [here](http://visionmedia.github.com/lingo).
 
+## Inflection
+
+Lingo provides English inflection rules by default, which of course can be extended. View _./lib/languages/en.js_ for more information.
+
+### Language#pluralize()
+
+Convert a singular word to it's plural alternative:
+
+    en.pluralize('fox');
+    // => "foxes"
+
+### Language#singularize()
+
+Convert a plural word to it's singular alternative:
+
+    en.singularize('foxes');
+    // => "fox"
+
+### Language#isPlural()
+
+Check if a word is plural:
+
+    en.isPlural('foxes');
+    // => true
+
+    en.isPlural('fox');
+    // => false
+
+### Language#isSingular()
+
+Check if a word is singular:
+
+    en.isSingular('fox');
+    // => true
+    
+    en.isSingular('foxes');
+    // => false
+
 ## Transformations
 
 ### lingo.capitalize()

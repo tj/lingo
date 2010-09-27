@@ -39,18 +39,24 @@ Camelcase with first character upppercase:
 
 ## i18n (translations)
 
-    var Language = require('lingo').Language
-      , french = new Language('fr');
+New languages can be defined as shown below:
 
-    french.translations = {
+    var Language = require('lingo').Language
+      , fr = new Language('fr');
+
+    fr.translations = {
       'Welcome {name}': 'Bonjour {name}'
     };
+
+The language code passed to `Language()` self-registers itself, so you could grab the implementation via:
+
+    var fr = require('lingo').Language.fr;
 
 ## License
 
 (The MIT License)
 
-Copyright (c) 2009-2010 TJ Holowaychuk &lt;tj@vision-media.ca&gt;
+Copyright (c) 2010 TJ Holowaychuk &lt;tj@vision-media.ca&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

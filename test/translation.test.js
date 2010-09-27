@@ -4,12 +4,27 @@
  */
 
 var lingo = require('lingo')
-  , t = lingo.Language.en.translate;
+  , lang = lingo.Language.en;
+
+var alien = new lingo.Language('alien');
+
+alien.translations = {
+    'Hello World': 'woof rawr'
+  , 'Hello {name}': '{name} rawr'
+  , 'Hello {first} {last}': '{first} {last} rawr'
+};
 
 module.exports = {
   'test .translate()': function(assert){
-    assert.equal('Hello World', t('Hello World'));
-    assert.equal('Hello TJ', t('Hello {name}', { name: 'TJ' }));
-    assert.equal('Hello foo bar', t('Hello {first} {last}', { first: 'foo', last: 'bar' }));
+    assert.equal('Hello World', lang.translate('Hello World'));
+    assert.equal('Hello TJ', lang.translate('Hello {name}', { name: 'TJ' }));
+    assert.equal('Hello foo bar', lang.translate('Hello {first} {last}', { first: 'foo', last: 'bar' }));
+  },
+  
+  'test .translate() with translations': function(assert){
+    var lang = alien;
+    assert.equal('woof rawr', lang.translate('Hello World'));
+    assert.equal('TJ rawr', lang.translate('Hello {name}', { name: 'TJ' }));
+    assert.equal('foo bar rawr', lang.translate('Hello {first} {last}', { first: 'foo', last: 'bar' }));
   }
 }

@@ -31,6 +31,6 @@ module.exports = {
   },
   
   'test Language mapping': function(assert){
-    assert.equal('en', lingo.Language.en.code);
+    assert.equal('en', lingo.en.code);
   }
 }

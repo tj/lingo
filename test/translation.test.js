@@ -4,7 +4,7 @@
  */
 
 var lingo = require('lingo')
-  , en = lingo.Language.en;
+  , en = lingo.en;
 
 var fr = new lingo.Language('fr');
 

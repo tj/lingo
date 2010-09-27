@@ -1,7 +1,7 @@
 
 # Lingo
 
- Lingo is a linguistics module, currently providing inflection and some string transformations. Eventually I would like to extend it's capabilities and add additional languages.
+ Lingo is a linguistics module, currently providing inflection and some string transformations. Eventually I would like to extend its capabilities and add additional languages.
 
 ## Installation
 

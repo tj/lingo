@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var lingo = require('lingo')
+var lingo = require('./..')
   , en = lingo.en;
 
 module.exports = {
@@ -18,7 +18,14 @@ module.exports = {
     en.uncountable('foobar');
     assert.equal(true, en.isUncountable('foobar'));
   },
-  
+
+  'test .pluralNumbers()': function(assert){
+    delete en.rules.pluralNumbers;
+    assert.equal(true, en.isPlural(1));
+    en.pluralNumbers(/[^1]/);
+    assert.equal(false, en.isPlural(1));
+  },
+
   'test .pluralize()': function(assert){
     assert.equal('ids', en.pluralize('id'));
     assert.equal('friends', en.pluralize('friend'));

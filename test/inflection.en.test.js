@@ -20,6 +20,8 @@ module.exports = {
   },
   
   'test .pluralize()': function(assert){
+    assert.equal('ids', en.pluralize('id'));
+    assert.equal('friends', en.pluralize('friend'));
     assert.equal('buses', en.pluralize('bus'));
     assert.equal('misses', en.pluralize('miss'));
     assert.equal('wishes', en.pluralize('wish'));

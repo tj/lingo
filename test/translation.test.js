@@ -72,16 +72,19 @@ module.exports = {
   },
   
   'test .translate() with escaped interpolation tokens': function(assert) {
-    assert.equal('Lingo uses {token} style interpolation"', en.translate('Lingo uses \\{token\\} style interpolation\\"'));    
+    assert.equal('Lingo uses {token} style interpolation"', en.translate('Lingo uses \\{token\\} style interpolation\\"'));
     assert.equal('Lingo uses {token} style interpolation"', en.translate('Lingo uses \\{token\\} style interpolation\\"', { }));
     assert.equal('Lingo uses {token} style interpolation"', en.translate('Lingo uses \\{token\\} style interpolation\\"', { token: 'brace' }));
-    assert.equal('Lingo uses \\brace style interpolation"', en.translate('Lingo uses \\\\{token} style interpolation\\"', { token: 'brace' }));    
-    assert.equal('Lingo uses \\{token} style interpolation"', en.translate('Lingo uses \\\\\\{token} style interpolation\\"'));    
-    assert.equal('Lingo uses \\{token} style interpolation"', en.translate('Lingo uses \\\\\\{token} style interpolation\\"', { }));    
-    assert.equal('Lingo uses \\{token} style interpolation"', en.translate('Lingo uses \\\\\\{token} style interpolation\\"', { token: 'brace' }));    
+    assert.equal('Lingo uses \\brace style interpolation"', en.translate('Lingo uses \\\\{token} style interpolation\\"', { token: 'brace' }));
+    assert.equal('Lingo uses \\{token} style interpolation"', en.translate('Lingo uses \\\\\\{token} style interpolation\\"'));
+    assert.equal('Lingo uses \\{token} style interpolation"', en.translate('Lingo uses \\\\\\{token} style interpolation\\"', { }));
+    assert.equal('Lingo uses \\{token} style interpolation"', en.translate('Lingo uses \\\\\\{token} style interpolation\\"', { token: 'brace' }));
     
     assert.equal('Plurals: {variable:singular|plural}', en.translate('Plurals: \\{variable:singular|plural}'));
     assert.equal('Plurals: {variable:singular|plural}', en.translate('Plurals: \\{variable:singular|plural}', {}));
     assert.equal('Plurals: {variable:singular|plural}', en.translate('Plurals: \\{variable:singular|plural}', { variable: 4 }));
+    
+    assert.equal('Plurals: \\2 plural', en.translate('Plurals: {variable:\\\\@ singular|\\\\@ plural}', { variable: 2 }));
+    assert.equal('Plurals: \\2 plural', en.translate('Plurals: \\\\{variable:@ singular|@ plural}', { variable: 2 }));
   }
 }

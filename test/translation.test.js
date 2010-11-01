@@ -69,5 +69,19 @@ module.exports = {
       '1 commentaire depuis hier',
       fr.translate('{comments:1 comment|@ comments} since {ago}', { comments: 1, ago: 'hier' })
     );
+  },
+  
+  'test .translate() with escaped interpolation tokens': function(assert) {
+    assert.equal('Lingo uses {token} style interpolation"', en.translate('Lingo uses \\{token\\} style interpolation\\"'));    
+    assert.equal('Lingo uses {token} style interpolation"', en.translate('Lingo uses \\{token\\} style interpolation\\"', { }));
+    assert.equal('Lingo uses {token} style interpolation"', en.translate('Lingo uses \\{token\\} style interpolation\\"', { token: 'brace' }));
+    assert.equal('Lingo uses \\brace style interpolation"', en.translate('Lingo uses \\\\{token} style interpolation\\"', { token: 'brace' }));    
+    assert.equal('Lingo uses \\{token} style interpolation"', en.translate('Lingo uses \\\\\\{token} style interpolation\\"'));    
+    assert.equal('Lingo uses \\{token} style interpolation"', en.translate('Lingo uses \\\\\\{token} style interpolation\\"', { }));    
+    assert.equal('Lingo uses \\{token} style interpolation"', en.translate('Lingo uses \\\\\\{token} style interpolation\\"', { token: 'brace' }));    
+    
+    assert.equal('Plurals: {variable:singular|plural}', en.translate('Plurals: \\{variable:singular|plural}'));
+    assert.equal('Plurals: {variable:singular|plural}', en.translate('Plurals: \\{variable:singular|plural}', {}));
+    assert.equal('Plurals: {variable:singular|plural}', en.translate('Plurals: \\{variable:singular|plural}', { variable: 4 }));
   }
 }

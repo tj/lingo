@@ -86,5 +86,8 @@ module.exports = {
     
     assert.equal('Plurals: \\2 plural', en.translate('Plurals: {variable:\\\\@ singular|\\\\@ plural}', { variable: 2 }));
     assert.equal('Plurals: \\2 plural', en.translate('Plurals: \\\\{variable:@ singular|@ plural}', { variable: 2 }));
+    
+    assert.equal('Plurals: @ 2 plural', en.translate('Plurals: {variable:\\@ @ singular|\\@ @ plural}', { variable: 2 }));
+    assert.equal('Plurals: \\2 2 plural', en.translate('Plurals: {variable:\\\\@ @ singular|\\\\@ @ plural}', { variable: 2 }));
   }
 }

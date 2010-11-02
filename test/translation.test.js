@@ -89,5 +89,12 @@ module.exports = {
     
     assert.equal('Plurals: @ 2 plural', en.translate('Plurals: {variable:\\@ @ singular|\\@ @ plural}', { variable: 2 }));
     assert.equal('Plurals: \\2 2 plural', en.translate('Plurals: {variable:\\\\@ @ singular|\\\\@ @ plural}', { variable: 2 }));
+    assert.equal('Plurals: 2|plural', en.translate('Plurals: {variable:@\\|singular|@\\|plural}', { variable: 2 }));
+    assert.equal('Plurals: 2 plural', en.translate('Plurals: {variable:@ singular\\\\|@ plural}', { variable: 2 }));
+    
+    assert.equal('Plurals: 2 plural}xy', en.translate('Plurals: {variable:\\@ singular|@ plural\\}x}y', { variable: 2 }));
+    assert.equal('Plurals: 2 plural\\x}y', en.translate('Plurals: {variable:\\@ singular|@ plural\\\\}x}y', { variable: 2 }));
+    
+    assert.equal("{This Lin'go us'es \\5b}ar style {foo} interpolation\\", en.translate("\\{{bar} Lin'go us'es \\\\{token:@f\\|oo|@b\\}ar} style \\{foo} interpolation\\", { bar: 'This', token: 5 }));
   }
 }

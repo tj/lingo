@@ -7,6 +7,10 @@ var lingo = require('./..')
   , en = lingo.en;
 
 module.exports = {
+  'test .name': function(assert){
+    assert.equal('English', en.name);
+  },
+
   'test .isUncountable()': function(assert){
     assert.equal(true, en.isUncountable('moose'));
     assert.equal(false, en.isUncountable('person'));

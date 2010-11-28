@@ -1,4 +1,10 @@
 
+0.0.4 / 2010-11-27 
+==================
+
+  * Added `Language#name` [Pau Ramon]
+  * Added Spanish inflector (needs more testing) [Pau Ramon]
+
 0.0.3 / 2010-10-25 
 ==================
 

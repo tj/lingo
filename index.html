@@ -108,7 +108,186 @@ code .this { color: #19469D; }</style>
 		</script>
 	</head>
 	<body>
-<table id="source"><tbody><tr><td><h1>Lingo</h1><p>Linguistics module for <a href="http://nodejs.org">Node</a> providing inflection, transformations and more.</p></td><td></td></tr><tr class="filename"><td><h2 id="lib/inflection.js"><a href="#">inflection</a></h2></td><td>lib/inflection.js</td></tr><tr class="code">
+<table id="source"><tbody><tr><td><h1>Lingo</h1><p>Linguistics module for <a href="http://nodejs.org">Node</a> providing inflection, transformations and more.</p></td><td></td></tr><tr class="filename"><td><h2 id="lib/language.js"><a href="#">language</a></h2></td><td>lib/language.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module dependencies.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">lingo</span> = <span class="variable">require</span>(<span class="string">'./lingo'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Initialize a new <code>Language</code> with the given <code>code</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  code</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="class">Language</span> = <span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span> <span class="class">Language</span>(<span class="variable">code</span>) {
+  <span class="this">this</span>.<span class="variable">code</span> = <span class="variable">code</span>;
+  <span class="this">this</span>.<span class="variable">translations</span> = {};
+  <span class="this">this</span>.<span class="variable">rules</span> = {
+      <span class="variable">plural</span>: []
+    , <span class="variable">singular</span>: []
+    , <span class="variable">uncountable</span>: {}
+    , <span class="variable">irregular</span>: { <span class="variable">plural</span>: {}, <span class="variable">singular</span>: {}}
+  };
+  <span class="variable">lingo</span>[<span class="variable">code</span>] = <span class="this">this</span>;
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Translate the given <code>str</code> with optional <code>params</code>.</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  str</p></li><li><p><strong>param</strong>: <em>Object</em>  params</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">translate</span> = <span class="keyword">function</span>(<span class="variable">str</span>, <span class="variable">params</span>){
+  <span class="variable">str</span> = <span class="this">this</span>.<span class="variable">translations</span>[<span class="variable">str</span>] || <span class="variable">str</span>;
+  <span class="keyword">if</span> (<span class="variable">params</span>) {
+    <span class="variable">str</span> = <span class="variable">str</span>.<span class="variable">replace</span>(<span class="regexp">/\{([^}]+)\}/g</span>, <span class="keyword">function</span>(<span class="variable">_</span>, <span class="variable">key</span>){
+      <span class="keyword">return</span> <span class="variable">params</span>[<span class="variable">key</span>];
+    });
+  }
+  <span class="keyword">return</span> <span class="variable">str</span>;
+};
+</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/lingo.js"><a href="#">lingo</a></h2></td><td>lib/lingo.js</td></tr><tr class="code">
+<td class="docs">
+<p>Module dependencies.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="keyword">var</span> <span class="variable">fs</span> = <span class="variable">require</span>(<span class="string">'fs'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Library version.</p>
+
+<ul><li><p><strong>type</strong>: <em>String</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">version</span> = <span class="string">'0.0.3'</span>;</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Expose <code>Language</code>.</p>
+
+<ul><li><p><strong>type</strong>: <em>Function</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="class">Language</span> = <span class="variable">require</span>(<span class="string">'./language'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Extend <code>Language</code> with inflection rules.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">require</span>(<span class="string">'./inflection'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Auto-require languages.
+ </p>
+</td>
+<td class="code">
+<pre><code><span class="variable">require</span>(<span class="string">'./languages/en'</span>);</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Capitalize the first word of <code>str</code> or optionally <code>allWords</code>.</p>
+
+<h2>Examples</h2>
+
+<p>   lingo.capitalize('hello there');
+   // =&gt; "Hello there"</p>
+
+<p>   lingo.capitalize('hello there', true);
+   // =&gt; "Hello There"</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  str</p></li><li><p><strong>param</strong>: <em>Boolean</em>  allWords</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">capitalize</span> = <span class="keyword">function</span>(<span class="variable">str</span>, <span class="variable">allWords</span>){
+  <span class="keyword">if</span> (<span class="variable">allWords</span>) {
+    <span class="keyword">return</span> <span class="variable">str</span>.<span class="variable">split</span>(<span class="string">' '</span>).<span class="variable">map</span>(<span class="keyword">function</span>(<span class="variable">word</span>){
+      <span class="keyword">return</span> <span class="variable">exports</span>.<span class="variable">capitalize</span>(<span class="variable">word</span>);
+    }).<span class="variable">join</span>(<span class="string">' '</span>);
+  }
+  <span class="keyword">return</span> <span class="variable">str</span>.<span class="variable">charAt</span>(<span class="number integer">0</span>).<span class="variable">toUpperCase</span>() + <span class="variable">str</span>.<span class="variable">substr</span>(<span class="number integer">1</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Camel-case the given <code>str</code>.</p>
+
+<h2>Examples</h2>
+
+<p>   lingo.camelcase('foo bar');
+   // =&gt; "fooBar"</p>
+
+<p>   lingo.camelcase('foo bar baz', true);
+   // =&gt; "FooBarBaz"</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>String</em>  str</p></li><li><p><strong>param</strong>: <em>Boolean</em>  uppercaseFirst</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">camelcase</span> = <span class="keyword">function</span>(<span class="variable">str</span>, <span class="variable">uppercaseFirst</span>){
+  <span class="keyword">return</span> <span class="variable">str</span>.<span class="variable">replace</span>(<span class="regexp">/[^\w\d ]+/g</span>, <span class="string">''</span>).<span class="variable">split</span>(<span class="string">' '</span>).<span class="variable">map</span>(<span class="keyword">function</span>(<span class="variable">word</span>, <span class="variable">i</span>){
+    <span class="keyword">if</span> (<span class="variable">i</span> || (<span class="number integer">0</span> == <span class="variable">i</span> &<span class="variable">amp</span>;&<span class="variable">amp</span>; <span class="variable">uppercaseFirst</span>)) {
+      <span class="variable">word</span> = <span class="variable">exports</span>.<span class="variable">capitalize</span>(<span class="variable">word</span>);
+    }
+    <span class="keyword">return</span> <span class="variable">word</span>;
+  }).<span class="variable">join</span>(<span class="string">''</span>);
+};</code></pre>
+</td>
+</tr>
+<tr class="code">
+<td class="docs">
+<p>Join an array with the given <code>last</code> string
+which defaults to "and".</p>
+
+<h2>Examples</h2>
+
+<p>   lingo.join(['fruits', 'veggies', 'sugar']);
+   // =&gt; "fruits, veggies and sugar"</p>
+
+<p>   lingo.join(['fruits', 'veggies', 'sugar'], 'or');
+   // =&gt; "fruits, veggies or sugar"</p>
+
+<h2></h2>
+
+<ul><li><p><strong>param</strong>: <em>Array</em>  arr</p></li><li><p><strong>param</strong>: <em>String</em>  last</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
+</td>
+<td class="code">
+<pre><code><span class="variable">exports</span>.<span class="variable">join</span> = <span class="keyword">function</span>(<span class="variable">arr</span>, <span class="variable">last</span>){
+  <span class="keyword">var</span> <span class="variable">str</span> = <span class="variable">arr</span>.<span class="variable">pop</span>()
+    , <span class="variable">last</span> = <span class="variable">last</span> || <span class="string">'and'</span>;
+  <span class="keyword">if</span> (<span class="variable">arr</span>.<span class="variable">length</span>) {
+    <span class="variable">str</span> = <span class="variable">arr</span>.<span class="variable">join</span>(<span class="string">', '</span>) + <span class="string">' '</span> + <span class="variable">last</span> + <span class="string">' '</span> + <span class="variable">str</span>;
+  }
+  <span class="keyword">return</span> <span class="variable">str</span>;
+};</code></pre>
+</td>
+</tr><tr class="filename"><td><h2 id="lib/inflection.js"><a href="#">inflection</a></h2></td><td>lib/inflection.js</td></tr><tr class="code">
 <td class="docs">
 <p>Module dependencies.
  </p>
@@ -246,57 +425,6 @@ code .this { color: #19469D; }</style>
 <pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">isSingular</span> = <span class="keyword">function</span>(<span class="variable">word</span>){
   <span class="keyword">return</span> <span class="variable">word</span> == <span class="this">this</span>.<span class="variable">singularize</span>(<span class="this">this</span>.<span class="variable">pluralize</span>(<span class="variable">word</span>));
 };</code></pre>
-</td>
-</tr><tr class="filename"><td><h2 id="lib/language.js"><a href="#">language</a></h2></td><td>lib/language.js</td></tr><tr class="code">
-<td class="docs">
-<p>Module dependencies.
- </p>
-</td>
-<td class="code">
-<pre><code><span class="keyword">var</span> <span class="variable">lingo</span> = <span class="variable">require</span>(<span class="string">'./lingo'</span>);</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Initialize a new <code>Language</code> with the given <code>code</code>.</p>
-
-<h2></h2>
-
-<ul><li><p><strong>param</strong>: <em>String</em>  code</p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
-</td>
-<td class="code">
-<pre><code><span class="keyword">var</span> <span class="class">Language</span> = <span class="variable">module</span>.<span class="variable">exports</span> = <span class="keyword">function</span> <span class="class">Language</span>(<span class="variable">code</span>) {
-  <span class="this">this</span>.<span class="variable">code</span> = <span class="variable">code</span>;
-  <span class="this">this</span>.<span class="variable">translations</span> = {};
-  <span class="this">this</span>.<span class="variable">rules</span> = {
-      <span class="variable">plural</span>: []
-    , <span class="variable">singular</span>: []
-    , <span class="variable">uncountable</span>: {}
-    , <span class="variable">irregular</span>: { <span class="variable">plural</span>: {}, <span class="variable">singular</span>: {}}
-  };
-  <span class="variable">lingo</span>[<span class="variable">code</span>] = <span class="this">this</span>;
-};</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Translate the given <code>str</code> with optional <code>params</code>.</p>
-
-<h2></h2>
-
-<ul><li><p><strong>param</strong>: <em>String</em>  str</p></li><li><p><strong>param</strong>: <em>Object</em>  params</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
-</td>
-<td class="code">
-<pre><code><span class="class">Language</span>.<span class="variable">prototype</span>.<span class="variable">translate</span> = <span class="keyword">function</span>(<span class="variable">str</span>, <span class="variable">params</span>){
-  <span class="variable">str</span> = <span class="this">this</span>.<span class="variable">translations</span>[<span class="variable">str</span>] || <span class="variable">str</span>;
-  <span class="keyword">if</span> (<span class="variable">params</span>) {
-    <span class="variable">str</span> = <span class="variable">str</span>.<span class="variable">replace</span>(<span class="regexp">/\{([^}]+)\}/g</span>, <span class="keyword">function</span>(<span class="variable">_</span>, <span class="variable">key</span>){
-      <span class="keyword">return</span> <span class="variable">params</span>[<span class="variable">key</span>];
-    });
-  }
-  <span class="keyword">return</span> <span class="variable">str</span>;
-};
-</code></pre>
 </td>
 </tr><tr class="filename"><td><h2 id="lib/languages/en.js"><a href="#">en</a></h2></td><td>lib/languages/en.js</td></tr><tr class="code">
 <td class="docs">
@@ -439,134 +567,6 @@ code .this { color: #19469D; }</style>
   .<span class="variable">uncountable</span>(<span class="string">'you'</span>)
   .<span class="variable">uncountable</span>(<span class="string">'news'</span>);
 </code></pre>
-</td>
-</tr><tr class="filename"><td><h2 id="lib/lingo.js"><a href="#">lingo</a></h2></td><td>lib/lingo.js</td></tr><tr class="code">
-<td class="docs">
-<p>Module dependencies.
- </p>
-</td>
-<td class="code">
-<pre><code><span class="keyword">var</span> <span class="variable">fs</span> = <span class="variable">require</span>(<span class="string">'fs'</span>);</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Library version.</p>
-
-<ul><li><p><strong>type</strong>: <em>String</em></p></li></ul>
-</td>
-<td class="code">
-<pre><code><span class="variable">exports</span>.<span class="variable">version</span> = <span class="string">'0.0.2'</span>;</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Expose <code>Language</code>.</p>
-
-<ul><li><p><strong>type</strong>: <em>Function</em></p></li></ul>
-</td>
-<td class="code">
-<pre><code><span class="variable">exports</span>.<span class="class">Language</span> = <span class="variable">require</span>(<span class="string">'./language'</span>);</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Extend <code>Language</code> with inflection rules.
- </p>
-</td>
-<td class="code">
-<pre><code><span class="variable">require</span>(<span class="string">'./inflection'</span>);</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Auto-require languages.
- </p>
-</td>
-<td class="code">
-<pre><code><span class="variable">require</span>(<span class="string">'./languages/en'</span>);</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Capitalize the first word of <code>str</code> or optionally <code>allWords</code>.</p>
-
-<h2>Examples</h2>
-
-<p>   lingo.capitalize('hello there');
-   // =&gt; "Hello there"</p>
-
-<p>   lingo.capitalize('hello there', true);
-   // =&gt; "Hello There"</p>
-
-<h2></h2>
-
-<ul><li><p><strong>param</strong>: <em>String</em>  str</p></li><li><p><strong>param</strong>: <em>Boolean</em>  allWords</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
-</td>
-<td class="code">
-<pre><code><span class="variable">exports</span>.<span class="variable">capitalize</span> = <span class="keyword">function</span>(<span class="variable">str</span>, <span class="variable">allWords</span>){
-  <span class="keyword">if</span> (<span class="variable">allWords</span>) {
-    <span class="keyword">return</span> <span class="variable">str</span>.<span class="variable">split</span>(<span class="string">' '</span>).<span class="variable">map</span>(<span class="keyword">function</span>(<span class="variable">word</span>){
-      <span class="keyword">return</span> <span class="variable">exports</span>.<span class="variable">capitalize</span>(<span class="variable">word</span>);
-    }).<span class="variable">join</span>(<span class="string">' '</span>);
-  }
-  <span class="keyword">return</span> <span class="variable">str</span>.<span class="variable">charAt</span>(<span class="number integer">0</span>).<span class="variable">toUpperCase</span>() + <span class="variable">str</span>.<span class="variable">substr</span>(<span class="number integer">1</span>);
-};</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Camel-case the given <code>str</code>.</p>
-
-<h2>Examples</h2>
-
-<p>   lingo.camelcase('foo bar');
-   // =&gt; "fooBar"</p>
-
-<p>   lingo.camelcase('foo bar baz', true);
-   // =&gt; "FooBarBaz"</p>
-
-<h2></h2>
-
-<ul><li><p><strong>param</strong>: <em>String</em>  str</p></li><li><p><strong>param</strong>: <em>Boolean</em>  uppercaseFirst</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
-</td>
-<td class="code">
-<pre><code><span class="variable">exports</span>.<span class="variable">camelcase</span> = <span class="keyword">function</span>(<span class="variable">str</span>, <span class="variable">uppercaseFirst</span>){
-  <span class="keyword">return</span> <span class="variable">str</span>.<span class="variable">replace</span>(<span class="regexp">/[^\w\d ]+/g</span>, <span class="string">''</span>).<span class="variable">split</span>(<span class="string">' '</span>).<span class="variable">map</span>(<span class="keyword">function</span>(<span class="variable">word</span>, <span class="variable">i</span>){
-    <span class="keyword">if</span> (<span class="variable">i</span> || (<span class="number integer">0</span> == <span class="variable">i</span> &<span class="variable">amp</span>;&<span class="variable">amp</span>; <span class="variable">uppercaseFirst</span>)) {
-      <span class="variable">word</span> = <span class="variable">exports</span>.<span class="variable">capitalize</span>(<span class="variable">word</span>);
-    }
-    <span class="keyword">return</span> <span class="variable">word</span>;
-  }).<span class="variable">join</span>(<span class="string">''</span>);
-};</code></pre>
-</td>
-</tr>
-<tr class="code">
-<td class="docs">
-<p>Join an array with the given <code>last</code> string
-which defaults to "and".</p>
-
-<h2>Examples</h2>
-
-<p>   lingo.join(['fruits', 'veggies', 'sugar']);
-   // =&gt; "fruits, veggies and sugar"</p>
-
-<p>   lingo.join(['fruits', 'veggies', 'sugar'], 'or');
-   // =&gt; "fruits, veggies or sugar"</p>
-
-<h2></h2>
-
-<ul><li><p><strong>param</strong>: <em>Array</em>  arr</p></li><li><p><strong>param</strong>: <em>String</em>  last</p></li><li><p><strong>return</strong>: <em>String</em> </p></li><li><p><strong>api</strong>: <em>public</em></p></li></ul>
-</td>
-<td class="code">
-<pre><code><span class="variable">exports</span>.<span class="variable">join</span> = <span class="keyword">function</span>(<span class="variable">arr</span>, <span class="variable">last</span>){
-  <span class="keyword">var</span> <span class="variable">str</span> = <span class="variable">arr</span>.<span class="variable">pop</span>()
-    , <span class="variable">last</span> = <span class="variable">last</span> || <span class="string">'and'</span>;
-  <span class="keyword">if</span> (<span class="variable">arr</span>.<span class="variable">length</span>) {
-    <span class="variable">str</span> = <span class="variable">arr</span>.<span class="variable">join</span>(<span class="string">', '</span>) + <span class="string">' '</span> + <span class="variable">last</span> + <span class="string">' '</span> + <span class="variable">str</span>;
-  }
-  <span class="keyword">return</span> <span class="variable">str</span>;
-};</code></pre>
 </td>
 </tr>	</body>
 </html></tbody></table>

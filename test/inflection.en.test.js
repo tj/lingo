@@ -70,6 +70,7 @@ module.exports = {
     assert.equal('oxen', en.pluralize('ox'));
     assert.equal('indices', en.pluralize('index'));
     assert.equal('indices', en.pluralize('indice'));
+    assert.equal('categories', en.pluralize('category'));
   },
   
   'test .singularize()': function(assert){
@@ -94,6 +95,7 @@ module.exports = {
     assert.equal('movie', en.singularize('movies'));
     assert.equal('series', en.singularize('series'));
     assert.equal('index', en.singularize('indices'));
+    assert.equal('category', en.singularize('categories'));
   },
   
   'test .isPlural()': function(assert){

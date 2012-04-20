@@ -13,6 +13,7 @@ module.exports = {
 
   'test .isUncountable()': function(beforeExit, assert){
     assert.equal(true, en.isUncountable('moose'));
+    assert.equal(true, en.isUncountable('walrus'));
     assert.equal(false, en.isUncountable('person'));
   },
   
@@ -64,6 +65,7 @@ module.exports = {
     assert.equal('theirs', en.pluralize('its'));
     assert.equal('theirs', en.pluralize('theirs'));
     assert.equal('monkeys', en.pluralize('monkey'));
+    assert.equal('walrus', en.pluralize('walrus'));
     assert.equal('keys', en.pluralize('key'));
     assert.equal('dogs', en.pluralize('dog'));
     assert.equal('boys', en.pluralize('boy'));
@@ -90,6 +92,8 @@ module.exports = {
     assert.equal('kiss', en.singularize('kiss'));
     assert.equal('man', en.singularize('man'));
     assert.equal('monkey', en.singularize('monkeys'));
+    assert.equal('walrus', en.singularize('walrus'));
+    assert.equal('walrus', en.singularize('walruses'));
     assert.equal('key', en.singularize('keys'));
     assert.equal('boy', en.singularize('boys'));
     assert.equal('movie', en.singularize('movies'));

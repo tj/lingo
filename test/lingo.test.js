@@ -23,6 +23,11 @@ module.exports = {
     assert.equal('UserRole', lingo.camelcase('user role', true));
   },
   
+  'test .underscore()': function(assert){
+    assert.equal('user', lingo.underscore('User'));
+    assert.equal('user_account', lingo.underscore('UserAccount'))
+  },
+  
   'test .join()': function(assert){
     assert.equal('foo', lingo.join(['foo']));
     assert.equal('foo and bar', lingo.join(['foo', 'bar']));

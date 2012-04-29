@@ -113,5 +113,12 @@ module.exports = {
     assert.equal(true, en.isSingular('dog'));
     assert.equal(false, en.isSingular('keys'));
     assert.equal(false, en.isSingular('foxes'));
+  },
+  
+  'test .tabelize()': function(assert){
+    assert.equal('user_accounts', en.tabelize('UserAccount'));
+    assert.equal('user', en.tabelize('User'));
+    assert.equal('monkeys', en.tabelize('Monkey'));
+    assert.equal('animals', en.tabelize('Animal'));
   }
 };

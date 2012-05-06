@@ -71,6 +71,24 @@ module.exports = {
     assert.equal('indices', en.pluralize('index'));
     assert.equal('indices', en.pluralize('indice'));
     assert.equal('categories', en.pluralize('category'));
+    assert.equal('plays', en.pluralize('play'));
+    assert.equal('alumni', en.pluralize('alumnus'));
+    assert.equal('tacos', en.pluralize('taco'));
+    assert.equal('cacti', en.pluralize('cactus'));
+    assert.equal('foci', en.pluralize('focus'));
+    assert.equal('fungi', en.pluralize('fungus'));
+    assert.equal('nuclei', en.pluralize('nucleus'));
+    assert.equal('radii', en.pluralize('radius'));
+    assert.equal('stimuli', en.pluralize('stimulus'));
+    assert.equal('analyses', en.pluralize('analysis'));
+    assert.equal('crises', en.pluralize('crisis'));
+    assert.equal('diagnoses', en.pluralize('diagnosis'));
+    assert.equal('ellipses', en.pluralize('ellipsis'));
+    assert.equal('beaux', en.pluralize('beau'));
+    assert.equal('lice', en.pluralize('louse'));
+    assert.equal('mice', en.pluralize('mouse'));
+    assert.equal('TESTS', en.pluralize('TEST'));
+    assert.equal('Tests', en.pluralize('Test'));
   },
   
   'test .singularize()': function(assert){
@@ -97,6 +115,24 @@ module.exports = {
     assert.equal('index', en.singularize('indices'));
     assert.equal('category', en.singularize('categories'));
     assert.equal('series', en.singularize('series'));
+    assert.equal('plays', en.singularize('play'));
+    assert.equal('alumnus', en.singularize('alumni'));
+    assert.equal('taco', en.singularize('tacos'));
+    assert.equal('cactus', en.singularize('cacti'));
+    assert.equal('focus', en.singularize('foci'));
+    assert.equal('fungus', en.singularize('fungi'));
+    assert.equal('nucleus', en.singularize('nuclei'));
+    assert.equal('radius', en.singularize('radii'));
+    assert.equal('stimulus', en.singularize('stimuli'));
+    assert.equal('analysis', en.singularize('analyses'));
+    assert.equal('crisis', en.singularize('crises'));
+    assert.equal('diagnosis', en.singularize('diagnoses'));
+    assert.equal('ellipsis', en.singularize('ellipses'));
+    assert.equal('beau', en.singularize('beaux'));
+    assert.equal('louse', en.singularize('lice'));
+    assert.equal('mouse', en.singularize('mice'));
+    assert.equal('TEST', en.singularize('TESTS'));
+    assert.equal('Test', en.singularize('Tests'));
   },
   
   'test .isPlural()': function(assert){

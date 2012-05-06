@@ -15,6 +15,19 @@ module.exports = {
     assert.equal('Hello There', lingo.capitalize('hello there', true));
   },
   
+  'test .isCapitalized()': function(assert){
+    assert.equal(true, lingo.isCapitalized('Hello there'));
+    assert.equal(true, lingo.isCapitalized('Hello There', true));
+    assert.equal(false, lingo.isCapitalized('HeLlO'));
+    assert.equal(false, lingo.isCapitalized('HELlo ThErE', true));
+  },
+  
+  'test .isUpperCase()': function(assert){
+    assert.equal(true, lingo.isUpperCase('HELLO'));
+    assert.equal(true, lingo.isUpperCase('HELLO THERE'));
+    assert.equal(false, lingo.isUpperCase('Hello There'));
+  }
+  
   'test .camelcase()': function(assert){
     assert.equal('foo', lingo.camelcase('foo'));
     assert.equal('fooBar', lingo.camelcase('foo bar'));

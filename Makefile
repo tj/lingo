@@ -1,8 +1,6 @@
 
 test:
-	@./support/expresso/bin/expresso \
-		$(TEST_FLAGS) \
-		-I lib
+	@./node_modules/.bin/mocha --ui exports
 
 docs: index.html
 

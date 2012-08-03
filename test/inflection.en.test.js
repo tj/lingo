@@ -4,33 +4,34 @@
  */
 
 var lingo = require('./..')
+  , assert = require('assert')
   , en = lingo.en;
 
 module.exports = {
-  'test .name': function(assert){
+  'test .name': function(){
     assert.equal('English', en.name);
   },
 
-  'test .isUncountable()': function(assert){
+  'test .isUncountable()': function(){
     assert.equal(true, en.isUncountable('moose'));
     assert.equal(false, en.isUncountable('person'));
   },
   
-  'test .uncountable()': function(assert){
+  'test .uncountable()': function(){
     delete en.rules.uncountable.foobar;
     assert.equal(false, en.isUncountable('foobar'));
     en.uncountable('foobar');
     assert.equal(true, en.isUncountable('foobar'));
   },
 
-  'test .pluralNumbers()': function(assert){
+  'test .pluralNumbers()': function(){
     delete en.rules.pluralNumbers;
     assert.equal(true, en.isPlural(1));
     en.pluralNumbers(/[^1]/);
     assert.equal(false, en.isPlural(1));
   },
 
-  'test .pluralize()': function(assert){
+  'test .pluralize()': function(){
     assert.equal('ids', en.pluralize('id'));
     assert.equal('friends', en.pluralize('friend'));
     assert.equal('buses', en.pluralize('bus'));
@@ -73,7 +74,7 @@ module.exports = {
     assert.equal('categories', en.pluralize('category'));
   },
   
-  'test .singularize()': function(assert){
+  'test .singularize()': function(){
     assert.equal('paper', en.singularize('paper'));
     assert.equal('ox', en.singularize('oxen'));
     assert.equal('shoe', en.singularize('shoes'));
@@ -99,7 +100,7 @@ module.exports = {
     assert.equal('series', en.singularize('series'));
   },
   
-  'test .isPlural()': function(assert){
+  'test .isPlural()': function(){
     assert.equal(true, en.isPlural('dogs'));
     assert.equal(true, en.isPlural('monkies'));
     assert.equal(true, en.isPlural('foxes'));
@@ -107,18 +108,11 @@ module.exports = {
     assert.equal(false, en.isPlural('fox'));
   },
   
-  'test .isSingular()': function(assert){
+  'test .isSingular()': function(){
     assert.equal(true, en.isSingular('fox'));
     assert.equal(true, en.isSingular('person'));
     assert.equal(true, en.isSingular('dog'));
     assert.equal(false, en.isSingular('keys'));
     assert.equal(false, en.isSingular('foxes'));
-  },
-  
-  'test .tabelize()': function(assert){
-    assert.equal('user_accounts', en.tabelize('UserAccount'));
-    assert.equal('user', en.tabelize('User'));
-    assert.equal('monkeys', en.tabelize('Monkey'));
-    assert.equal('animals', en.tabelize('Animal'));
   }
 };

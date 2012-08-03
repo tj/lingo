@@ -4,6 +4,7 @@
  */
 
 var lingo = require('lingo')
+  , assert = require('assert')
   , en = lingo.en;
 
 var fr = new lingo.Language('fr');

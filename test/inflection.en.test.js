@@ -4,6 +4,7 @@
  */
 
 var lingo = require('./..')
+  , assert = require('assert')
   , en = lingo.en;
 
 module.exports = {

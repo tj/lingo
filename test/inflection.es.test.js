@@ -3,6 +3,7 @@
  */
 
 var lingo = require('./..')
+  , assert = require('assert')
   , es = lingo.es;
 
 module.exports = {

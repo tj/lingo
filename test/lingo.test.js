@@ -3,7 +3,8 @@
  * Module dependencies.
  */
 
-var lingo = require('lingo');
+var lingo = require('lingo')
+  , assert = require('assert');
 
 module.exports = {
   'test .version': function(assert){

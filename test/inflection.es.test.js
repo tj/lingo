@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 
-var lingo = require('./..')
+var lingo = require('..')
   , assert = require('assert')
   , es = lingo.es;
 

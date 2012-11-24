@@ -1,6 +1,12 @@
 
+TESTS = test/node/*.js
+
 test:
-	@./node_modules/.bin/mocha --ui exports
+	@./node_modules/.bin/mocha --ui exports \
+		$(TESTS)
+
+test-server:
+	@node test/server
 
 docs: index.html
 

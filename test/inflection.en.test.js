@@ -98,6 +98,8 @@ module.exports = {
     assert.equal('index', en.singularize('indices'));
     assert.equal('category', en.singularize('categories'));
     assert.equal('series', en.singularize('series'));
+    assert.equal('class', en.singularize('class'));
+    assert.equal('business', en.singularize('business'));
   },
   
   'test .isPlural()': function(){

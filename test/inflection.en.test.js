@@ -85,6 +85,8 @@ module.exports = {
     assert.equal('i', en.singularize('we'));
     assert.equal('you', en.singularize('you'));
     assert.equal('themself', en.singularize('themselves'));
+		assert.equal('objective', en.singularize('objectives'));
+		assert.equal('positive', en.singularize('positives'));
     assert.equal('theirs', en.singularize('theirs'));
     assert.equal('bus', en.singularize('bus'));
     assert.equal('miss', en.singularize('miss'));

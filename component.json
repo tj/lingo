@@ -1,0 +1,25 @@
+{
+  "name": "lingo",
+  "repo": "visionmedia/lingo",
+  "description": "linguistics module sporting inflection and more",
+  "version": "0.0.5",
+  "keywords": [
+    "language",
+    "linguistics",
+    "inflection"
+  ],
+  "dependencies": {},
+  "development": {
+    "component/assert": "*"
+  },
+  "scripts": [
+    "index.js",
+    "lib/lingo.js",
+    "lib/language.js",
+    "lib/inflection.js",
+    "lib/languages/en.js",
+    "lib/languages/es.js"
+  ],
+  "main": "index.js",
+  "license": "MIT"
+}

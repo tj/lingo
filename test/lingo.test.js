@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var lingo = require('lingo')
+var lingo = require('./..')
   , assert = require('assert');
 
 module.exports = {
@@ -18,6 +18,7 @@ module.exports = {
     assert.equal('fooBarBaz', lingo.camelcase('foo bar baz'));
     assert.equal('base64Encode', lingo.camelcase('base  -! 64 encode'));
     assert.equal('UserRole', lingo.camelcase('user role', true));
+    assert.equal(lingo.camelcase('foo_bar'), 'fooBar');
   },
   
   'test .underscore()': function(){

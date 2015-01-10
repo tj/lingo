@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var lingo = require('lingo')
+var lingo = require('..')
   , assert = require('assert')
   , en = lingo.en;
 
@@ -21,7 +21,7 @@ module.exports = {
     assert.equal('Hello TJ', en.translate('Hello {name}', { name: 'TJ' }));
     assert.equal('Hello foo bar', en.translate('Hello {first} {last}', { first: 'foo', last: 'bar' }));
   },
-  
+
   'test .translate() with translations': function(){
     assert.equal('Bonjour tout le monde', fr.translate('Hello World'));
     assert.equal('Bonjour TJ', fr.translate('Hello {name}', { name: 'TJ' }));

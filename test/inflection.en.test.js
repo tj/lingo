@@ -16,7 +16,7 @@ module.exports = {
     assert.equal(true, en.isUncountable('moose'));
     assert.equal(false, en.isUncountable('person'));
   },
-  
+
   'test .uncountable()': function(){
     delete en.rules.uncountable.foobar;
     assert.equal(false, en.isUncountable('foobar'));
@@ -54,7 +54,7 @@ module.exports = {
     assert.equal('they', en.pluralize('she'));
     assert.equal('they', en.pluralize('he'));
     assert.equal('ourselves', en.pluralize('myself'));
-    assert.equal('ourselves', en.pluralize('yourself'));
+    assert.equal('yourselves', en.pluralize('yourself'));
     assert.equal('themselves', en.pluralize('themself'));
     assert.equal('themselves', en.pluralize('herself'));
     assert.equal('themselves', en.pluralize('himself'));
@@ -73,7 +73,7 @@ module.exports = {
     assert.equal('indices', en.pluralize('indice'));
     assert.equal('categories', en.pluralize('category'));
   },
-  
+
   'test .singularize()': function(){
     assert.equal('paper', en.singularize('paper'));
     assert.equal('ox', en.singularize('oxen'));
@@ -99,7 +99,7 @@ module.exports = {
     assert.equal('category', en.singularize('categories'));
     assert.equal('series', en.singularize('series'));
   },
-  
+
   'test .isPlural()': function(){
     assert.equal(true, en.isPlural('dogs'));
     assert.equal(true, en.isPlural('monkies'));
@@ -107,7 +107,7 @@ module.exports = {
     assert.equal(false, en.isPlural('key'));
     assert.equal(false, en.isPlural('fox'));
   },
-  
+
   'test .isSingular()': function(){
     assert.equal(true, en.isSingular('fox'));
     assert.equal(true, en.isSingular('person'));
